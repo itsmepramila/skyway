@@ -1,0 +1,21 @@
+/* Carousel.css */
+.slick-slider {
+    /* Adjust the negative margin value as needed to reduce the gap between images */
+    margin: 0 -0px;
+  }
+  
+  .slick-slide {
+    /* Adjust the padding value as needed to control the space around each slide */
+    padding: 0 -10px;
+  }
+  
+  /* If you want to make the images fill the entire slide, use the following CSS */
+  .slick-slide img {
+    width: 200px;
+    object-fit: cover;
+  }
+  
+.slick-prev,
+.slick-next {
+  display: none;
+}

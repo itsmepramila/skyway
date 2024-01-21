@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <div class="container-fluid py-4">
+      <div class="row">
+        <div class="container">
+          <form action="{% url 'search' %}"
+                method="GET"
+                class="my-3 d-flex justify-content-end">
+            <div class="input-group col-4">
+              <input type="text"
+                     name="q"
+                     class="form-control"
+                     placeholder="Search..."
+                     value="{{ request.GET.q }}">
+              <div class="input-group-append">
+                <button type="submit" class="btn btn-primary c-btn">Search</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="card my-4">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+            <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+              <h6 class="text-white text-capitalize ps-3">Detail</h6>
+            </div>
+          </div>
+          <div class="container-fluid py-4">
+            {% comment %} <div class="container">
+                                <form action="{% url 'search' %}" method="GET" class="my-3">
+                                    <div class="input-group  flex justify-center col-4 ">
+                                        <input type="text " name="q" class="form-control" placeholder="Search..." value="{{ request.GET.q }}">
+                                        <div class="input-group-append">
+                                            <button type="submit" class="btn btn-primary c-btn">Search</button>
+                                        </div>
+                                    </div>
+                                </form>
+            </div> {% endcomment %}
+            <div class="card-body px-0 pb-2">
+              <div class="table-responsive p-0">
+                <form method="POST" action="{% url 'delete_apply' %}">
+                  {% csrf_token %}
+                  <tr>
+                    <th>
+                      <!-- "Select All" checkbox -->
+                      <input type="checkbox" id="select-all">
+                    </th>
+                    <!-- "Select All" checkbox and header row -->
+                    <th>Select All</th>
+                  </tr>
+                  <table class="table align-items-center mb-0">
+                    <tr>
+                      <th>Select</th>
+                      <th>S.N</th>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Phone number</th>
+                      <th>Current Address</th>
+                      <th>Selected Country</th>
+                      <th>Action</th>
+                    </tr>
+                    {% for cons in results %}
+                      <tr>
+                        <td>
+                          <input type="checkbox" name="selected_items" value="{{ cons.pk }}">
+                        </td>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ cons.name }}</td>
+                        <td>{{ cons.email }}</td>
+                        <td>{{ cons.mobile }}</td>
+                        <td>{{ cons.currentAddress }}</td>
+                        <td>{{ cons.country }}</td>
+                        <td>
+                          <!-- Detail Button -->
+                          <button class="btn btn-primary btn-sm">
+                            <a href="{% url 'application' pk=cons.pk %}">Detail</a>
+                          </button>
+                          <!-- End Detail Button -->
+                        </td>
+                      </tr>
+                    {% endfor %}
+                    {% comment %} {% else %}
+                                            <p>No results found for "{{ query }}".</p>
+                    {% endif %} {% endcomment %}
+                  </table>
+                  <div>
+                    <button type="submit" class="btn btn-danger btn-sm me-5 deleteButton">Delete</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const selectAllCheckbox = document.getElementById("select-all");
+        const itemCheckboxes = document.querySelectorAll('input[name="selected_items"]');
+
+        selectAllCheckbox.addEventListener("change", function () {
+            itemCheckboxes.forEach(itemCheckbox => {
+                itemCheckbox.checked = selectAllCheckbox.checked;
+            });
+        });
+
+        itemCheckboxes.forEach(itemCheckbox => {
+            itemCheckbox.addEventListener("change", function () {
+                const allChecked = Array.from(itemCheckboxes).every(item => item.checked);
+                selectAllCheckbox.checked = allChecked;
+            });
+        });
+    });
+ </script>
+{% comment %} {% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
+   <div class="container-fluid py-4">
+       <div class="row">
+           <div class="col-12">
+               <h2>Search Results for "{{ query }}"</h2>
+               {% if result %}
+                   <div class="card">
+                       <div class="card-body">
+                           <h3>Name: {{ result.name }}</h3>
+                           <p>Email: {{ result.email }}</p>
+                           <p>Message: {{ result.message }}</p>
+                           <!-- Display other details as needed -->
+                       </div>
+                   </div>
+               {% else %}
+                   <p>No results found for "{{ query }}".</p>
+               {% endif %}
+           </div>
+       </div>
+   </div>
+</main>
+{% endblock content %} {% endcomment %}
+</main>
+
+{% endblock content %}
+

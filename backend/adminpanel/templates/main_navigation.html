@@ -1,0 +1,203 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl"
+         id="navbarBlur"
+         navbar-scroll="true">
+      <div class="container-fluid  px-3">
+        <nav aria-label="breadcrumb">
+          <div class="container-right">
+            {% if parent_id %}
+              <a href="{% url 'navigation' parent_id=parent_id %}">
+              {% else %}
+                <a href="{% url 'navigation' %}">
+                {% endif %}
+                <button type="submit" class="btn btn-primary">Create New</button>
+              </a>
+            </div>
+          </nav>
+        </div>
+        <div class="container">
+          <form action="{% url 'main_navigation' %}"
+                method="GET"
+                class="my-2 d-flex justify-content-end ms-auto">
+            <div class="input-group col-12 ">
+              <input type="text"
+                     name="q"
+                     class="form-control"
+                     placeholder="Search..."
+                     value="{{ request.GET.q }}">
+              <div class="input-group-append">
+                <button type="submit" class="btn btn-primary c-btn">Search</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+      <style>
+      .table-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    
+      .table-container table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      </style>
+      <div class="container-fluid ">
+        <div class="row">
+          <div class="col-12">
+            <div class="card my-4">
+              <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                  <h6 class="text-white text-capitalize ps-3">Main_Navigation</h6>
+                </div>
+              </div>
+              <div class="card-body px-0 pb-2">
+                <div class="table-responsive p-0">
+                  <table class="table" id="nav_table">
+                    <thead>
+                      <tr>
+                        <th>S/N</th>
+                        <th>Name</th>
+                        <th>Banner Image</th>
+                        <th>Page Type</th>
+                        <th>Position</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                        <th>Open</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for objs in obj %}
+                        <tr>
+                          <th>{{ forloop.counter }}</th>
+                          <td>{{ objs.name }}</td>
+                          <td>
+                            {% if objs.bannerimage %}
+                              <img src="{{ objs.bannerimage.url }}" style="max-width: 30%; height: auto">
+                            {% endif %}
+                          </td>
+                          <td>{{ objs.page_type }}</td>
+                          <td>{{ objs.position }}</td>
+                          <td>{{ objs.status }}</td>
+                          <style>
+                          .button-group {
+                          display: flex;
+                          gap: 5px;
+                        }
+                          </style>
+                          <td>
+                            <div class="button-group">
+                              <a href="{% url 'update' pk=objs.pk %}">
+                                <button type="submit" class="btn btn-primary btn-sm c-btn">&#9998;</button>
+                              </a>
+                              <form method="POST" action="{% url 'delete_nav' pk=objs.pk %}">
+                                {% csrf_token %}
+                                <button type="button"
+                                        class="btn-danger btn-sm deleteButton"
+                                        onclick="myFunction(event)">&#128465;</button>
+                                <p class="confirmation-msg"></p>
+                              </form>
+                            </div>
+                          </td>
+                          <td>
+                            {% if objs.page_type == 'Group' %}
+                              <a href="{% url 'main_navigation' parent_id=objs.pk %}"
+                                 class="btn btn-primary btn-sm c-btn">Open</a>
+                            {% endif %}
+                          </td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                  {% if results %}
+                    <table class="table" id="search_nav">
+                      <thead>
+                        <tr>
+                          <th>S/N</th>
+                          <th>Name</th>
+                          <th>Banner Image</th>
+                          <th>Page Type</th>
+                          <th>Position</th>
+                          <th>Status</th>
+                          <th>Actions</th>
+                          <th>Open</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for objs in results %}
+                          <tr>
+                            <th>{{ forloop.counter }}</th>
+                            <td>{{ objs.name }}</td>
+                            <td>
+                              {% if objs.bannerimage %}
+                                <img src="{{ objs.bannerimage.url }}" style="max-width: 30%; height: auto">
+                              {% endif %}
+                            </td>
+                            <td>{{ objs.page_type }}</td>
+                            <td>{{ objs.position }}</td>
+                            <td>{{ objs.status }}</td>
+                            <style>
+                          .button-group {
+                          display: flex;
+                          gap: 5px;
+                        }
+                            </style>
+                            <td>
+                              <div class="button-group">
+                                <a href="{% url 'update' pk=objs.pk %}">
+                                  <button type="submit" class="btn btn-primary btn-sm c-btn">&#9998;</button>
+                                </a>
+                                <form method="POST" action="{% url 'delete_nav' pk=objs.pk %}">
+                                  {% csrf_token %}
+                                  <button type="button"
+                                          class="btn-danger btn-sm deleteButton"
+                                          onclick="myFunction(event)">&#128465;</button>
+                                  <p class="confirmation-msg"></p>
+                                </form>
+                              </div>
+                            </td>
+                            <td>
+                              {% if objs.page_type == 'Group' %}
+                                <a href="{% url 'main_navigation' parent_id=objs.pk %}"
+                                   class="btn btn-primary btn-sm c-btn">Open</a>
+                              {% endif %}
+                            </td>
+                          </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+      function myFunction(event) {
+          var confirmation = confirm("Are you sure you want to delete?");
+          if (confirmation === true) {
+              // Continue with form submission (delete action)
+              event.target.parentNode.submit(); // Manually submit the form
+          } 
+      }
+      </script>
+      <script>
+      // JavaScript to toggle table visibility
+      var contactTable = document.getElementById("nav_table");
+      var searchContactTable = document.getElementById("search_nav");
+
+      // Check if searchContactTable has rows, and hide contactTable if it does
+      if (searchContactTable && searchContactTable.rows.length > 1) {
+      contactTable.style.display = "none";
+      }
+      
+      </script>
+    {% endblock content %}

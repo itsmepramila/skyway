@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl"
+         id="navbarBlur"
+         navbar-scroll="true">
+      <div class="container-fluid py-1 px-3 align-items-center">
+        <nav aria-label="breadcrumb">
+          <h6 class="font-weight-bolder mb-0">ApplyNow Details</h6>
+        </nav>
+        <div>
+          <form action="{% url 'applynow' %}"
+                method="GET"
+                class="my-2 d-flex justify-content-end ms-auto">
+            <div class="input-group col-12">
+              <input type="text"
+                     name="q"
+                     class="form-control"
+                     placeholder="Search..."
+                     value="{{ request.GET.q }}">
+              <div class="input-group-append">
+                <button type="submit" class="btn btn-primary c-btn">Search</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <!-- End Navbar -->
+    <div class="container-fluid py-2">
+      <div class="row">
+        <div class="col-12">
+          <div class="card my-4">
+            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+              <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                <h6 class="text-white text-capitalize ps-3">Detail</h6>
+              </div>
+            </div>
+            <div class="container-fluid py-4">
+              <div class="card-body px-0 pb-2">
+                <div class="table-responsive p-0">
+                  <form id="deleteForm" method="POST" action="{% url 'delete_applynow' %}">
+                    {% csrf_token %}
+                    <tr>
+                      <th>
+                        <!-- "Select All" checkbox -->
+                        <input type="checkbox" id="select-all" class="ml-2">
+                      </th>
+                      <th>Select All</th>
+                    </tr>
+                    <table class="table align-items-center mb-0 hide" id="comment_table">
+                      <thead>
+                        <tr>
+                          <th>Select</th>
+                          <th>S.N</th>
+                          <th>Full Name</th>
+                          <th>Address</th>
+                          <th>Gender</th>
+                          <th>Date Of Birth</th>
+                          <th>Phone Number</th>
+                          
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for cons in page_obj %}
+                          <tr>
+                            <td>
+                              <input type="checkbox" name="selected_items[]" value="{{ cons.pk }}">
+                            </td>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ cons.fullName }}</td>
+                            <td>{{ cons.address }}</td>
+                            <td>{{ cons.gender }}</td>
+                            <td>{{ cons.dateOfBirth }}</td>
+                            <!-- <td>{{ cons.own_phone_number }}</td> -->
+                            <td>
+                              <!-- Detail Button -->
+                              <button class="btn btn-primary btn-sm">
+                                  <a href="{% url 'application' pk=cons.pk %}">Detail</a>
+                              </button>
+                              <!-- End Detail Button -->
+                            </td>
+                          </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                    {% if results %}
+                      <table class="table align-items-center mb-0" id="search_comment">
+                        <tr>
+                          <th>Select</th>
+                          <th>S.N</th>
+                          <th>Full Name</th>
+                          <th>Address</th>
+                          <th>Gender</th>
+                          <th>Date Of Birth</th>
+                          <th>Phone Number</th>
+                        </tr>
+                        {% for cons in results %}
+                          <tr>
+                            <td>
+                              <input type="checkbox" name="selected_items[]" value="{{ cons.pk }}">
+                            </td>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ cons.fullName }}</td>
+                            <td>{{ cons.address }}</td>
+                            <td>{{ cons.gender }}</td>
+                            <td>{{ cons.dateOfBirth }}</td>
+                            <!-- <td>{{ cons.own_phone_number }}</td> -->
+                            <td>
+                              <!-- Detail Button -->
+                              <button class="btn btn-primary btn-sm">
+                                  <a href="{% url 'application' pk=cons.pk %}">Detail</a>
+                              </button>
+                              <!-- End Detail Button -->
+                            </td>
+                          </tr>
+                          {% comment %} <form method="POST" action="{% url 'delete' pk=cons.pk %}">
+                                {% csrf_token %}
+                                <button type="button" class="btn-danger btn-sm deleteButton" onclick="myFunction(event)">&#128465;</button>
+                                <p class="confirmation-msg"></p>
+                          </form> {% endcomment %}
+                        {% endfor %}
+                      </table>
+                    {% endif %}
+                    <div>
+                      <button type="button" class="btn btn-danger btn-sm deleteButton">Delete</button>
+                    </div>
+                    {% comment %} </form> {% endcomment %}
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page=1" aria-label="First">First</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link"
+               href="?page={{ page_obj.previous_page_number }}"
+               aria-label="Previous">Previous</a>
+          </li>
+        {% endif %}
+        {% for i in page_obj.paginator.page_range %}
+          <li class="page-item {% if page_obj.number == i %}active{% endif %}">
+            <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+          </li>
+        {% endfor %}
+        {% if page_obj.has_next %}
+          <li class="page-item">
+            <a class="page-link"
+               href="?page={{ page_obj.next_page_number }}"
+               aria-label="Next">Next</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link"
+               href="?page={{ page_obj.paginator.num_pages }}"
+               aria-label="Last">Last</a>
+          </li>
+        {% endif %}
+      </ul>
+    </nav>
+  </main>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const selectAllCheckbox = document.getElementById("select-all");
+      const itemCheckboxes = document.querySelectorAll('input[name="selected_items[]"]');
+      const deleteButton = document.querySelector('.deleteButton');
+
+      selectAllCheckbox.addEventListener("change", function () {
+        itemCheckboxes.forEach(itemCheckbox => {
+          itemCheckbox.checked = selectAllCheckbox.checked;
+        });
+      });
+
+      itemCheckboxes.forEach(itemCheckbox => {
+        itemCheckbox.addEventListener("change", function () {
+          const allChecked = Array.from(itemCheckboxes).every(item => item.checked);
+          selectAllCheckbox.checked = allChecked;
+        });
+      });
+
+      deleteButton.addEventListener("click", function () {
+        const selectedItems = document.querySelectorAll('input[name="selected_items[]"]:checked');
+        if (selectedItems.length > 0) {
+          const confirmed = confirm("Are you sure you want to delete the selected items?")
+          if(confirmed){
+          document.getElementById("deleteForm").submit();
+          }
+        } else {
+          alert("Please select items to delete.");
+        }
+      });
+    });
+  </script>
+  <script>
+      // JavaScript to toggle table visibility
+      var commentTable = document.getElementById("comment_table");
+      var searchCommentTable = document.getElementById("search_comment");
+
+      // Check if searchContactTable has rows, and hide contactTable if it does
+      if (searchCommentTable && searchCommentTable.rows.length > 1) {
+      commentTable.style.display = "none";
+      }
+      
+  </script>
+  <style>
+    .deleteButton {
+      background: #d50216 !important;
+      color: white !important;
+    }
+  </style>
+{% endblock content %}

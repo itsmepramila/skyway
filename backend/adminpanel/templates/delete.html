@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl"
+         id="navbarBlur"
+         navbar-scroll="true">
+    </nav>
+    <form action="{% url 'delete' %}">
+      {% csrf_token %}
+      <p>Are you sure you want to delete this ?</p>
+      <input type="submit" class=" btn-danger btn-sm" value="Yes">
+      <a href="{% url 'delete_nav' pk=objs.pk %}">Cancel</a>
+    </form>
+  </main>
+{% endblock content %}

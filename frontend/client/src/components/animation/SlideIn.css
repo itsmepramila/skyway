@@ -1,0 +1,27 @@
+/* SlideIn.css */
+.slide-in {
+  opacity: 0;
+}
+
+.slide-in.slide-in-appear-active {
+  opacity: 1;
+  animation: slide-in 1s forwards;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Adjust the transform value and animation duration as needed */
+.slide-in.slide-in-left {
+  animation-duration: 2s;
+}
+
+.slide-in.slide-in-right {
+  animation-duration: 2s;
+}

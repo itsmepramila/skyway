@@ -1,0 +1,377 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %} 
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg" >
+
+    <!-- End Navbar -->
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-12">
+                    <div class="container-fluid py-4">
+                        <div class="card-body px-0 pb-2">
+                            <div class="table-responsive p-0" >
+                                <div class="container-fluid py-1 px-3">
+                                    <nav aria-label="breadcrumb">
+                                      <h1 class="font-weight-bolder mb-2">ApplyNow Form detail</h1>
+                                    </nav>
+                                  </div>
+                                {% comment %} <div class="flex justify-center mt-4">
+                                    <div class="ml-auto"> <!-- Add 'ml-auto' class for right alignment -->
+                                        <!-- Add this link/button within your HTML template where you want the download link -->
+                                        <a href="{% url 'download_as_pdf' app.pk %}" class="btn btn-primary">Download PDF</a>
+                                    </div>
+                                </div> {% endcomment %}
+                                
+                                <section id="downloadable-content mt-3">
+                                    <div class="container flex flex-col items-center">
+                                        <div class="w-full shadow-[0_0_20px_1px_rgba(0,0,0,0.1)] p-6 rounded-lg form-container">
+                                            <div class="d-flex justify-content-between gap-4 w-100 ">
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">Job Code</label>
+                                                    <p>{{ app.job_code }}</p>
+                                                </div>
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">Full Name</label>
+                                                    <p>{{ app.fullName }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-between gap-4 w-100 ">
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">Address</label>
+                                                    <p>{{ app.address }}</p>
+                                                </div>
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">Nationality</label>
+                                                    <p>{{ app.nationality }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-between gap-4 w-100 ">
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">Passport No.</label>
+                                                    <p>{{ app.passportNumber }}</p>
+                                                </div>
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">Gender</label>
+                                                    <p>{{ app.gender }}</p>
+                                                </div>
+                                            </div>
+                                               
+                                            <div class="d-flex justify-content-between gap-4 w-100 ">
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">Place Of Issue</label>
+                                                    <p>{{ app.placeOfIssue }}</p>
+                                                </div>
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">Expiry Date</label>
+                                                    <p>{{ app.expiryDate }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-between gap-4 w-100 ">
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">Date Of Birth</label>
+                                                    <p>{{ app.dateOfBirth }}</p>
+                                                </div>
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">Height</label>
+                                                    <p>{{ app.height }}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between gap-4 w-100 ">
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">Weight</label>
+                                                    <p>{{ app.weight }}</p>
+                                                </div>
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">Marital Status</label>
+                                                    <p>{{ app.maritalStatus }}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between gap-4 w-100 ">
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">Children</label>
+                                                    <p>{{ app.children }}</p>
+                                                </div>
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">Religion</label>
+                                                    <p>{{ app.religion }}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between gap-4 w-100 ">
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">Arabic Speaking</label>
+                                                    <p>{{ app.arabic_speaking }}</p>
+                                                </div>
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">Arabic Listening</label>
+                                                    <p>{{ app.arabic_listening }}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between gap-4 w-100 ">
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">Arabic Reading</label>
+                                                    <p>{{ app.arabic_reading }}</p>
+                                                </div>
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">Arabic Writing</label>
+                                                    <p>{{ app.arabic_writing }}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between gap-4 w-100 ">
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">English Speaking</label>
+                                                    <p>{{ app.english_speaking }}</p>
+                                                </div>
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">English Listening</label>
+                                                    <p>{{ app.english_listening }}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between gap-4 w-100 ">
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">English Reading</label>
+                                                    <p>{{ app.english_reading }}</p>
+                                                </div>
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">English Writing</label>
+                                                    <p>{{ app.english_writing }}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between gap-4 w-100 ">
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">Hindi Speaking</label>
+                                                    <p>{{ app.hindi_speaking }}</p>
+                                                </div>
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">Hindi Listening</label>
+                                                    <p>{{ app.hindi_listening }}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between gap-4 w-100 ">
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">Hindi Reading</label>
+                                                    <p>{{ app.hindi_reading }}</p>
+                                                </div>
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">Hindi Writing</label>
+                                                    <p>{{ app.hindi_writing }}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between gap-4 w-100 ">
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">Education Level</label>
+                                                    <p>{{ app.education }}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between gap-4 w-100 ">
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">Working Field(Nepal)</label>
+                                                    <p>{{ app.field_nepal }}</p>
+                                                </div>
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">Employer(Nepal)</label>
+                                                    <p>{{ app.employer_nepal }}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between gap-4 w-100 ">
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">Working Duration(Nepal)</label>
+                                                    <p>{{ app.duration_nepal }}</p>
+                                                </div>
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">Working address(Nepal)</label>
+                                                    <p>{{ app.address_nepal }}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between gap-4 w-100 ">
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">Working Field(Overseas)</label>
+                                                    <p>{{ app.field_overseas }}</p>
+                                                </div>
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">Employer(Overseas)</label>
+                                                    <p>{{ app.employer_overseas }}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between gap-4 w-100 ">
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">Working Duration(Overseas)</label>
+                                                    <p>{{ app.duration_overseas }}</p>
+                                                </div>
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">Working Country(Overseas)</label>
+                                                    <p>{{ app.country_overseas }}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between gap-4 w-100 ">
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">Other Skills</label>
+                                                    <p>{{ app.otherSkills }}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between gap-4 w-100 ">
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">Agents name</label>
+                                                    <p>{{ app.agentName }}</p>
+                                                </div>
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">Own Phone Number</label>
+                                                    <p>{{ app.phoneNumber }}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between gap-4 w-100 ">
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">Email</label>
+                                                    <p>{{ app.email }}</p>
+                                                </div>
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">Home Phone Number</label>
+                                                    <p>{{ app.homeNumber }}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex justify-content-between gap-4 w-100 ">
+                                                <div class="w-50 py-3">
+                                                    <label class="mb-1">Relatives Phone Number</label>
+                                                    <p>{{ app.relativesNumber }}</p>
+                                                </div>
+                                            </div>
+                                                                                         
+                                       </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-center mt-4">
+                        <a href="{% url 'applynow' %}" class="btn btn-primary">Back</a>
+                    </div>
+
+            </div>
+        </div>
+    </div>
+</main>
+<style>
+
+    /* Add this CSS to style your template */
+
+    /* Navbar */
+    .navbar {
+        background-color: #fff; /* Change the background color as needed */
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Add a shadow effect */
+    }
+    
+    .navbar h6 {
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin: 0;
+    }
+    
+    /* Card Header */
+    .card-header {
+        background: linear-gradient(45deg, #007BFF, #00A2FF); /* Gradient background */
+    }
+    
+    .card-header h6 {
+        color: #fff;
+        text-transform: capitalize;
+    }
+    
+    /* Form Container */
+    .form-container {
+        background-color: #fff;
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+    
+    /* Labels */
+    label {
+        font-weight: bold;
+        font-size: 18px;
+
+    }
+    
+    /* Displayed Text */
+    p {
+        margin: 0;
+    }
+    
+    /* Buttons */
+    .btn-primary {
+        background-color: #007BFF;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+        background-color: #0056b3; /* Darker shade on hover */
+    }
+    
+    /* Images */
+    img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 5px;
+    }
+    
+    /* Links */
+    a {
+        color: #007BFF;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s ease;
+    }
+    
+    a:hover {
+        color: #0056b3; /* Darker shade on hover */
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .form-container {
+            padding: 10px;
+        }
+    }
+    
+    /* Style the <p> tag */
+        p {
+            margin: 0;
+            font-size: 1rem; /* Adjust the font size as needed */
+            line-height: 1.4; /* Adjust the line height as needed */
+            color: #333; /* Text color */
+            /* Add any other styles you desire for beautification */
+            padding: 5px; /* Add some padding for spacing */
+            border: 1px solid #ccc; /* Add a border */
+            border-radius: 5px; /* Add rounded corners */
+            {% comment %} background-color: #f5f5f5; /* Add a background color */ {% endcomment %}
+            box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }       
+        /* Style the <p> tag on hover */
+        p:hover {
+            background-color: #e0e0e0; /* Change the background color on hover */
+            transform: scale(1.02); /* Add a slight scale effect on hover */
+        }      
+</style>
+{% endblock content %}
